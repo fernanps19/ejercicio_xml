@@ -38,8 +38,21 @@ def buscar_relacionada(pokemon,movimiento):
 
 #5. Libre: Introducir por teclado el nombre de un pokemon y 
 #mostrar el nombre de sus evoluciones, si tiene, con la id de cada uno y su descripción.
+def ids_descr(pokemon):
+	ids1=pokemon.xpath('//pokemon/@id')
+	descripciones1=pokemon.xpath('//pokemon/description/text()')
+	return zip(ids1,descripciones1)
+
+
 def libre(pokemon,nombre):
 	lista=pokemon.xpath('/pokedex/pokemon')
+	evos2=[]
 	for i in lista:
-		if nombre==i.xpath('./name/text()'):
-			 return i.xpath('./evolutions/evolution/name/text()')
+		if nombre in i.xpath('./name/text()'):
+			ids=(i.xpath('./evolutions/evolution/@id'))
+			evos=(i.xpath('./evolutions/evolution/name/text()'))
+			evos2.append((i.xpath('./evolutions/evolution/name/text()')))
+	if len(evos2)==0:
+		return False
+	else:
+		return zip(evos,ids)
